@@ -22,7 +22,7 @@ jobs:
           npm install
           npm run build
         env:
-          VITE_API: ${{ secrets.VITE_API }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
       # 步驟三：部署
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
