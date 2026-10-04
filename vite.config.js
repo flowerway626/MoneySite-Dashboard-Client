@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/MoneySite-Dashboard-Client/',
   server: {
     port: 5173,
     proxy: {
