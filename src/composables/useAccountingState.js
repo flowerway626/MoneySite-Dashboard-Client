@@ -5,6 +5,11 @@ import { computed, ref } from 'vue';
 */
 
 export function useAccountingState() {
+
+  const loginPassword = ref('');
+  const isAuthenticated = ref(false);
+  const loginError = ref('');
+  const checkingAuth = ref(false);
   // =========================
   // 基本資料
   // =========================
@@ -85,6 +90,11 @@ export function useAccountingState() {
   });
 
   return {
+    checkingAuth,
+    loginPassword,
+    isAuthenticated,
+    loginError,
+
     // 資料
     records,
     yearlyRecords,

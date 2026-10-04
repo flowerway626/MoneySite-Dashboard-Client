@@ -285,15 +285,19 @@ export function useAccounting() {
   // =========================================================
   // Mounted
   // =========================================================
+  async function initializeApp() {
+    const authenticated = await api.checkAuth();
+  
+    if (!authenticated) return;
+  
+    await api.loadCategories();
+    await loadMonthlyRecords();
+  }
 
   onMounted(async () => {
     window.addEventListener('resize', handleResize);
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    await api.loadCategories();
-
-    await loadMonthlyRecords();
+    initializeApp();
   });
 
   // =========================================================
@@ -324,6 +328,9 @@ export function useAccounting() {
     // =======================================================
 
     api: api.api,
+
+    login: api.login,
+    logout: api.logout,
 
     loadCategories: api.loadCategories,
 

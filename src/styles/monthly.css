@@ -15,12 +15,18 @@
 }
 
 .refresh-btn,
+.logout-btn,
 .today-btn,
 .month-control button {
   border: 1px solid #dfe3e7;
   border-radius: 9px;
   background: white;
   cursor: pointer;
+}
+
+.logout-btn {
+  margin-left: 5px;
+  padding: 10px 16px;
 }
 
 .refresh-btn {

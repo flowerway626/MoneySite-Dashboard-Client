@@ -7,7 +7,8 @@ API / Google Sheets 資料
 export function useAccountingApi(state) {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
-  const { records, yearlyRecords, expenseCategoryGroups, paymentMethods, loading, yearlyLoading, error, currentYear, currentMonth, selectedYear } = state;
+  const { loginPassword, loginError, checkingAuth, isAuthenticated, records, yearlyRecords, expenseCategoryGroups, paymentMethods,
+    loading, yearlyLoading, error, currentYear, currentMonth, loadMonthlyRecords, selectedYear } = state;
 
   // =========================
   // API Instance
@@ -16,7 +17,61 @@ export function useAccountingApi(state) {
   const api = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
+    withCredentials: true,
   });
+
+  async function login () {
+    loginError.value = '';
+  
+    if (!loginPassword.value) return;
+  
+    try {
+      const response = await api.post('/api/login', {
+        password: loginPassword.value
+      });
+  
+      if (response.data.success) {
+        isAuthenticated.value = true;
+        loginPassword.value = '';
+      }
+      return true;
+
+    } catch (error) {
+      loginError.value = '非請勿入ヾ(｀⌒´メ)ノ″';
+      return false;
+    }
+  }
+  
+  async function logout() {
+    try {
+      await api.post('/api/logout');
+  
+      state.isAuthenticated.value = false;
+  
+      return true;
+    } catch (error) {
+      console.error('logout error:', error);
+  
+      return false;
+    }
+  }
+  
+  async function checkAuth () {
+    console.log("checkAuth");
+    try {
+      await api.get('/api/auth/check');
+      console.log("true");
+      isAuthenticated.value = true;
+      return true;
+
+    } catch {
+      isAuthenticated.value = false;
+      return false;
+
+    } finally {
+      checkingAuth.value = false;
+    }
+  }
 
   // =========================
   // 取得分類
@@ -113,6 +168,9 @@ export function useAccountingApi(state) {
 
   return {
     api,
+    login,
+    logout,
+    checkAuth,
     loadCategories,
     loadRecords,
     loadYearlyRecords,
