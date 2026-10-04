@@ -1,0 +1,32 @@
+:root {
+  font-family:
+    Inter,
+    "Noto Sans TC",
+    "Microsoft JhengHei",
+    sans-serif;
+
+  color: #2f3437;
+  background: #f5f6f8;
+  font-synthesis: none;
+
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+
+  --text-color: #2f3437;
+  --text-secondary: #666;
+  --text-muted: #8a9096;
+
+  --border-color: #e7e9ec;
+  --card-bg: #fff;
+  --page-bg: #f5f6f8;
+
+  --success-color: #16a34a;
+  --danger-color: #dc2626;
+
+  --border-radius: 16px;
+  --small-radius: 8px;
+
+  --card-padding: 20px;
+
+  --shadow: 0 2px 10px rgba(20, 30, 40, 0.035);
+}
